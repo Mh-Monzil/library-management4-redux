@@ -15,7 +15,16 @@ import { BookOpen, Edit, Eye, Plus } from "lucide-react";
 import { Link } from "react-router";
 
 const Books = () => {
-  const { data: books } = useGetBooksQuery({});
+  const { data: books, isLoading } = useGetBooksQuery({});
+  console.log(books);
+
+  if (isLoading) {
+    return (
+      <div className="max-w-7xl mx-auto py-4 sm:py-8 px-4 sm:px-6 lg:px-8">
+        <p className="text-gray-500 text-lg">Loading books...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-7xl mx-auto py-4 sm:py-8 px-4 sm:px-6 lg:px-8">
@@ -38,7 +47,7 @@ const Books = () => {
       <div className="block lg:hidden">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {books?.data?.map((book: IBook) => (
-            <BookCard key={book.id} book={book} />
+            <BookCard key={book._id} book={book} />
           ))}
         </div>
       </div>
@@ -59,7 +68,7 @@ const Books = () => {
           </TableHeader>
           <TableBody>
             {books?.data?.map((book: IBook) => (
-              <TableRow key={book.id}>
+              <TableRow key={book._id}>
                 <TableCell className="font-medium">{book.title}</TableCell>
                 <TableCell>{book.author}</TableCell>
                 <TableCell>{book.genre}</TableCell>
@@ -73,18 +82,18 @@ const Books = () => {
                 <TableCell>
                   <div className="flex items-center space-x-2">
                     <Button variant="ghost" size="sm" asChild>
-                      <Link to={`/books/${book.id}`}>
+                      <Link to={`/books/${book._id}`}>
                         <Eye className="h-4 w-4" />
                       </Link>
                     </Button>
                     <Button variant="ghost" size="sm" asChild>
-                      <Link to={`/edit-book/${book.id}`}>
+                      <Link to={`/edit-book/${book._id}`}>
                         <Edit className="h-4 w-4" />
                       </Link>
                     </Button>
                     {book.available && book.copies > 0 && (
                       <Button variant="ghost" size="sm" asChild>
-                        <Link to={`/borrow/${book.id}`}>
+                        <Link to={`/borrow/${book._id}`}>
                           <BookOpen className="h-4 w-4" />
                         </Link>
                       </Button>

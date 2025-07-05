@@ -53,7 +53,7 @@ const BookCard = ({ book }: BookCardProps) => {
             asChild
             className="flex-1 min-w-0 bg-transparent"
           >
-            <Link to={`/books/${book.id}`}>
+            <Link to={`/books/${book._id}`}>
               <Eye className="h-3 w-3 mr-1" />
               View
             </Link>
@@ -64,7 +64,7 @@ const BookCard = ({ book }: BookCardProps) => {
             asChild
             className="flex-1 min-w-0 bg-transparent"
           >
-            <Link to={`/edit-book/${book.id}`}>
+            <Link to={`/edit-book/${book._id}`}>
               <Edit className="h-3 w-3 mr-1" />
               Edit
             </Link>
@@ -76,7 +76,7 @@ const BookCard = ({ book }: BookCardProps) => {
               asChild
               className="flex-1 min-w-0 bg-transparent"
             >
-              <Link to={`/borrow/${book.id}`}>
+              <Link to={`/borrow/${book._id}`}>
                 <BookOpen className="h-3 w-3 mr-1" />
                 Borrow
               </Link>
