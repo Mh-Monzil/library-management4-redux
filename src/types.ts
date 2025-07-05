@@ -1,8 +1,16 @@
-export interface ITask {
+export interface IBook {
   id: string;
   title: string;
-  description: string;
-  dueDate: string;
-  isCompleted: boolean;
-  priority: "high" | "medium" | "low";
+  author: string;
+  genre:
+    | "FICTION"
+    | "NON_FICTION"
+    | "SCIENCE"
+    | "HISTORY"
+    | "BIOGRAPHY"
+    | "FANTASY";
+  isbn: string;
+  description?: string;
+  copies: number;
+  available?: boolean;
 }

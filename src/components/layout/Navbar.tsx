@@ -60,15 +60,17 @@ const Navbar = () => {
                 </Button>
               </SheetTrigger>
               <SheetContent side="right" className="w-64">
-                <div className="flex flex-col space-y-4 mt-8">
+                <div className="flex flex-col space-y-4 mt-8 px-4">
                   {navItems.map((item) => {
                     const Icon = item.icon;
                     return (
                       <Button
                         key={item.href}
-                        variant={isActive(item.href) ? "default" : "ghost"}
+                        variant={"ghost"}
                         asChild
-                        className="justify-start"
+                        className={
+                          isActive(item.href) ? "border-b border-rose-800" : ""
+                        }
                         onClick={() => setIsOpen(false)}
                       >
                         <Link to={item.href}>
