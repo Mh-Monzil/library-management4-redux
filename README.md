@@ -1,4 +1,4 @@
-# 🌐 Frontend Application
+# 🌐 Open Library - Library Management System
 
 A modern, responsive, and scalable frontend application built with [React.js](https://reactjs.org) and [Tailwind CSS](https://tailwindcss.com). This project is designed to be fast, accessible, and developer-friendly.
 
