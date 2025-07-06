@@ -9,7 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Link, useParams } from "react-router";
+import { Link, useNavigate, useParams } from "react-router";
 import {
   useBorrowBookMutation,
   useGetBookByIdQuery,
@@ -20,6 +20,7 @@ const BorrowBook = () => {
   const { id } = useParams();
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const navigate = useNavigate();
   const [quantity, setQuantity] = useState(1);
   const [dueDate, setDueDate] = useState("");
   const [borrowBook] = useBorrowBookMutation();
@@ -51,12 +52,12 @@ const BorrowBook = () => {
 
       if (res.success) {
         refetch();
-        console.log(res);
-        // redirect("/borrow-summary");
+        navigate("/borrow-summary");
         toast.success("Book borrowed successfully!");
       }
     } catch (error) {
       console.error("Failed to borrow book:", error);
+      toast.error(error?.data?.message || "Failed to borrow book");
     } finally {
       setIsSubmitting(false);
     }

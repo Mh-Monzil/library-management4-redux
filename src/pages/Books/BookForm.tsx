@@ -11,7 +11,7 @@ import {
 import type { IBook } from "@/types";
 import { ArrowLeft } from "lucide-react";
 import { useState } from "react";
-import { Link, useLocation } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import { toast } from "sonner";
 
 interface BookFormProps {
@@ -20,6 +20,7 @@ interface BookFormProps {
 
 const BookForm = ({ book }: BookFormProps) => {
   const { pathname } = useLocation();
+  const navigate = useNavigate();
   const [createBook] = useAddBookMutation();
   const [updateBook] = useUpdateBookMutation();
 
@@ -46,6 +47,7 @@ const BookForm = ({ book }: BookFormProps) => {
         if (res.success) {
           setIsSubmitting(false);
           toast.success("Book added successfully!");
+          navigate("/books");
         }
       } else {
         const res = await updateBook({
@@ -60,6 +62,7 @@ const BookForm = ({ book }: BookFormProps) => {
       }
     } catch (error) {
       console.error("Error updating book:", error);
+      toast.error(error?.data?.message);
     } finally {
       setIsSubmitting(false);
     }
