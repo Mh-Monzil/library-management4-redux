@@ -12,11 +12,16 @@ import {
 import { useGetBooksQuery } from "@/redux/features/api/bookApi";
 import type { IBook } from "@/types";
 import { BookOpen, Edit, Eye, Plus } from "lucide-react";
+import { useEffect } from "react";
 import { Link } from "react-router";
 
 const Books = () => {
-  const { data: books, isLoading } = useGetBooksQuery({});
+  const { data: books, isLoading, refetch } = useGetBooksQuery({});
   console.log(books);
+
+  useEffect(() => {
+    refetch();
+  }, [refetch]);
 
   if (isLoading) {
     return (

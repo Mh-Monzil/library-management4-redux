@@ -16,7 +16,7 @@ interface BookFormProps {
 }
 
 const BookForm = ({ book }: BookFormProps) => {
-  const [updateBook, { data, isSuccess }] = useUpdateBookMutation();
+  const [updateBook] = useUpdateBookMutation();
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState<IBook>({
@@ -42,10 +42,8 @@ const BookForm = ({ book }: BookFormProps) => {
       }).unwrap();
 
       setIsSubmitting(false);
-      if (isSuccess) {
-        console.log(res);
+      if (res.success) {
         toast.success("Book updated successfully!");
-        console.log("Book updated successfully:", data);
       }
     } catch (error) {
       console.error("Error updating book:", error);
