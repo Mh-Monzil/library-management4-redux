@@ -60,6 +60,8 @@ const BookForm = ({ book }: BookFormProps) => {
       }
     } catch (error) {
       console.error("Error updating book:", error);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 

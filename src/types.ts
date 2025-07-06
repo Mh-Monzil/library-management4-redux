@@ -15,3 +15,11 @@ export interface IBook {
   copies: number;
   available?: boolean;
 }
+
+export interface IBorrowedBook {
+  totalQuantity: number;
+  book: {
+    title: string;
+    isbn: string;
+  };
+}

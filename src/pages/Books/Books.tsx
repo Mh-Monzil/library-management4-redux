@@ -14,6 +14,7 @@ import type { IBook } from "@/types";
 import { BookOpen, Edit, Eye, Plus } from "lucide-react";
 import { useEffect } from "react";
 import { Link } from "react-router";
+import DeleteBookButton from "./DeleteBook";
 
 const Books = () => {
   const { data: books, isLoading, refetch } = useGetBooksQuery({});
@@ -103,6 +104,7 @@ const Books = () => {
                         </Link>
                       </Button>
                     )}
+                    <DeleteBookButton bookId={book._id} refetch={refetch} />
                   </div>
                 </TableCell>
               </TableRow>

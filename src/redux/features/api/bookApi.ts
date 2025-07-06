@@ -9,9 +9,11 @@ export const bookApi = createApi({
   endpoints: (builder) => ({
     getBooks: builder.query({
       query: () => "/books",
+      providesTags: ["Book"],
     }),
     getBookById: builder.query({
       query: (id) => `/books/${id}`,
+      providesTags: ["Book"],
     }),
     addBook: builder.mutation({
       query: (newBook) => ({
@@ -44,6 +46,10 @@ export const bookApi = createApi({
       }),
       invalidatesTags: ["Book"],
     }),
+    getBorrowedBooksSummary: builder.query({
+      query: () => "/borrow",
+      providesTags: ["Book"],
+    }),
   }),
 });
 
@@ -54,4 +60,5 @@ export const {
   useUpdateBookMutation,
   useDeleteBookMutation,
   useBorrowBookMutation,
+  useGetBorrowedBooksSummaryQuery,
 } = bookApi;
