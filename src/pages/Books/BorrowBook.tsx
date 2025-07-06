@@ -55,7 +55,8 @@ const BorrowBook = () => {
         navigate("/borrow-summary");
         toast.success("Book borrowed successfully!");
       }
-    } catch (error) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
       console.error("Failed to borrow book:", error);
       toast.error(error?.data?.message || "Failed to borrow book");
     } finally {

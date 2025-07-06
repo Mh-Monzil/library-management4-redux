@@ -41,7 +41,6 @@ const BookForm = ({ book }: BookFormProps) => {
     setIsSubmitting(true);
     try {
       if (pathname.includes("create-book")) {
-        console.log(formData);
         const res = await createBook(formData).unwrap();
 
         if (res.success) {
@@ -60,7 +59,8 @@ const BookForm = ({ book }: BookFormProps) => {
           toast.success("Book updated successfully!");
         }
       }
-    } catch (error) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
       console.error("Error updating book:", error);
       toast.error(error?.data?.message);
     } finally {

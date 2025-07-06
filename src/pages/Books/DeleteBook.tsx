@@ -31,9 +31,7 @@ const DeleteBookButton = ({ bookId, refetch }: DeleteBookProps) => {
     try {
       const res = await deleteBook(bookId).unwrap();
       if (res.success) {
-        console.log(res);
         setIsDeleting(false);
-        console.log("Book deleted successfully");
         toast.success("Book deleted successfully!");
         refetch();
       }

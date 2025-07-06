@@ -18,7 +18,6 @@ import DeleteBookButton from "./DeleteBook";
 
 const Books = () => {
   const { data: books, isLoading, refetch } = useGetBooksQuery({});
-  console.log(books);
 
   useEffect(() => {
     refetch();
