@@ -11,7 +11,7 @@ interface BookCardProps {
 
 const BookCard = ({ book }: BookCardProps) => {
   return (
-    <Card className="h-full">
+    <Card className="h-full bg-transparent">
       <CardHeader className="pb-3">
         <div className="flex justify-between items-start">
           <div className="flex-1 min-w-0">
@@ -32,16 +32,16 @@ const BookCard = ({ book }: BookCardProps) => {
       </CardHeader>
       <CardContent className="pt-0">
         <div className="space-y-2 text-sm">
-          <div className="flex justify-between">
-            <span className="text-gray-500">Genre:</span>
+          <div className="flex">
+            <span className="text-gray-200">Genre:</span>
             <span className="font-medium truncate ml-2">{book.genre}</span>
           </div>
-          <div className="flex justify-between">
-            <span className="text-gray-500">ISBN:</span>
+          <div className="flex">
+            <span className="text-gray-200">ISBN:</span>
             <span className="font-mono text-xs truncate ml-2">{book.isbn}</span>
           </div>
-          <div className="flex justify-between">
-            <span className="text-gray-500">Copies:</span>
+          <div className="flex">
+            <span className="text-gray-200">Copies:</span>
             <span className="font-medium">{book.copies}</span>
           </div>
         </div>
