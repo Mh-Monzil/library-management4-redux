@@ -50,6 +50,7 @@ export const bookApi = createApi({
 export const {
   useGetBooksQuery,
   useGetBookByIdQuery,
+  useAddBookMutation,
   useUpdateBookMutation,
   useDeleteBookMutation,
   useBorrowBookMutation,

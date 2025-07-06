@@ -4,11 +4,14 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { useUpdateBookMutation } from "@/redux/features/api/bookApi";
+import {
+  useAddBookMutation,
+  useUpdateBookMutation,
+} from "@/redux/features/api/bookApi";
 import type { IBook } from "@/types";
 import { ArrowLeft } from "lucide-react";
 import { useState } from "react";
-import { Link } from "react-router";
+import { Link, useLocation } from "react-router";
 import { toast } from "sonner";
 
 interface BookFormProps {
@@ -16,11 +19,12 @@ interface BookFormProps {
 }
 
 const BookForm = ({ book }: BookFormProps) => {
+  const { pathname } = useLocation();
+  const [createBook] = useAddBookMutation();
   const [updateBook] = useUpdateBookMutation();
 
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [formData, setFormData] = useState<IBook>({
-    _id: book?._id || "",
+  const [formData, setFormData] = useState<Partial<IBook>>({
     title: book?.title || "",
     author: book?.author || "",
     genre: book?.genre || "",
@@ -35,15 +39,24 @@ const BookForm = ({ book }: BookFormProps) => {
 
     setIsSubmitting(true);
     try {
-      console.log(formData);
-      const res = await updateBook({
-        id: book?._id,
-        updatedBook: formData,
-      }).unwrap();
+      if (pathname.includes("create-book")) {
+        console.log(formData);
+        const res = await createBook(formData).unwrap();
 
-      setIsSubmitting(false);
-      if (res.success) {
-        toast.success("Book updated successfully!");
+        if (res.success) {
+          setIsSubmitting(false);
+          toast.success("Book added successfully!");
+        }
+      } else {
+        const res = await updateBook({
+          id: book?._id,
+          updatedBook: formData,
+        }).unwrap();
+
+        if (res.success) {
+          setIsSubmitting(false);
+          toast.success("Book updated successfully!");
+        }
       }
     } catch (error) {
       console.error("Error updating book:", error);
@@ -54,7 +67,7 @@ const BookForm = ({ book }: BookFormProps) => {
     field: keyof IBook,
     value: string | number | boolean
   ) => {
-    setFormData((prev: IBook) => ({
+    setFormData((prev: Partial<IBook>) => ({
       ...prev,
       [field]: value,
     }));
@@ -177,7 +190,11 @@ const BookForm = ({ book }: BookFormProps) => {
               disabled={isSubmitting}
               className="w-full sm:w-auto cursor-pointer"
             >
-              {isSubmitting ? "Saving..." : "Update Book"}
+              {isSubmitting
+                ? "Saving..."
+                : pathname === "/create-book"
+                ? "Add Book"
+                : "Update Book"}
             </Button>
           </div>
         </form>
